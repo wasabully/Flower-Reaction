@@ -1,42 +1,27 @@
 import React from 'react';
-import flowAll from '../assets/flowAll.png';
 
-function FlowerBlock({ title, price, size }) {
-	const [selectedSize, setSelectedSize] = React.useState(size);
-
-	const handleSizeClick = (sizeOption) => {
-		setSelectedSize(sizeOption);
-	};
-
-	const [flowerCount, setFlowerCount] = React.useState(0);
-
-	const addFlowerToCart = () => {
-		setFlowerCount(flowerCount + 1);
-	};
-
+function FlowerBlock({ title, price, sizes, imageUrl }) {
+	const [activeSize, setActiveSize] = React.useState(0);
+	const sizeName = ['S', 'M', 'L'];
 	return (
 		<div className='flower-block'>
-			<img className='flower-block__image' src={flowAll} alt='flower' />
+			<img className='flower-block__image' src={imageUrl} alt={title} />
 			<h4 className='flower-block__title'>{title}</h4>
 			<div className='flower-block__selector'>
 				<ul>
-					{['S', 'M', 'L'].map((sizeOption) => (
+					{sizes.map((sizeid) => (
 						<li
-							key={sizeOption}
-							className={selectedSize === sizeOption ? 'active' : ''}
-							onClick={() => handleSizeClick(sizeOption)}
+							onClick={() => setActiveSize(sizeid)}
+							className={activeSize === sizeid ? 'active' : ''}
 						>
-							{sizeOption}
+							{sizeName[sizeid]}
 						</li>
 					))}
 				</ul>
 			</div>
 			<div className='flower-block__bottom'>
 				<div className='flower-block__price'>от {price} ₽</div>
-				<button
-					onClick={addFlowerToCart}
-					className='button button--outline button--add'
-				>
+				<button className='button button--outline button--add'>
 					<svg
 						width='12'
 						height='12'
@@ -50,7 +35,7 @@ function FlowerBlock({ title, price, size }) {
 						/>
 					</svg>
 					<span>Добавить</span>
-					<i>{flowerCount}</i>
+					<i>0</i>
 				</button>
 			</div>
 		</div>

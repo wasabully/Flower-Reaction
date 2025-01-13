@@ -1,4 +1,4 @@
-import logoflow from '../assets/logoflow.png';
+import logoflow from '../assets/img/logoflow.png';
 
 function Header() {
 	return (

@@ -1,9 +1,11 @@
+import flowers from './assets/flower.json';
 import Catigories from './components/Catigories';
 import FlowerBlock from './components/FlowerBlock';
 import Header from './components/Header';
 import Sort from './components/Sort';
 import './scss/app.scss';
 
+console.log(flowers);
 function App() {
 	return (
 		<div className='wrapper'>
@@ -16,16 +18,13 @@ function App() {
 					</div>
 					<h2 className='content__title'>Все Цветы</h2>
 					<div className='content__items'>
-						{[
-							{ title: 'Alyi', price: 2500, size: 'M' },
-							{ title: 'Rable', price: 2400, size: 'L' },
-							{ title: 'Terra', price: 3200, size: 'S' },
-						].map((flower, index) => (
+						{flowers.map((obj) => (
 							<FlowerBlock
-								key={index}
-								title={flower.title}
-								price={flower.price}
-								size={flower.size}
+								// title={obj.title}
+								// price={obj.price}
+								// sizes={obj.sizes}
+								// imageUrl={obj.imageUrl}
+								{...obj}
 							/>
 						))}
 					</div>
