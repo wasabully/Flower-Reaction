@@ -11,6 +11,7 @@ function FlowerBlock({ title, price, sizes, imageUrl }) {
 				<ul>
 					{sizes.map((sizeid) => (
 						<li
+							key={sizeid}
 							onClick={() => setActiveSize(sizeid)}
 							className={activeSize === sizeid ? 'active' : ''}
 						>

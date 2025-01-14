@@ -24,6 +24,7 @@ function App() {
 								// price={obj.price}
 								// sizes={obj.sizes}
 								// imageUrl={obj.imageUrl}
+								key={obj.id}
 								{...obj}
 							/>
 						))}
