@@ -5,7 +5,7 @@ function Header() {
 		<div className='header'>
 			<div className='container'>
 				<div className='header__logo'>
-					<img width='60' height='60' src={logoflow} alt='flower logo' />
+					<img width='40' height='40' src={logoflow} alt='flower logo' />
 					<div>
 						<h1>Flower React</h1>
 						<p>Цветочная реакция</p>
