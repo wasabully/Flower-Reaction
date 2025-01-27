@@ -6,7 +6,7 @@ import Sort from '../components/Sort';
 import FlowerBlock from '../components/FlowerBlock';
 import Skeleton from '../components/FlowerBlock/Skeleton';
 
-export const Home = () => {
+const Home = () => {
 	const [Items, setItems] = React.useState([]);
 	const [isLoading, setLoading] = React.useState(true);
 

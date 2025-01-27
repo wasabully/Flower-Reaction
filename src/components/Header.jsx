@@ -1,18 +1,21 @@
+import { Link } from 'react-router';
 import logoflow from '../assets/img/logoflow.png';
 
 function Header() {
 	return (
 		<div className='header'>
 			<div className='container'>
-				<div className='header__logo'>
-					<img width='40' height='40' src={logoflow} alt='flower logo' />
-					<div>
-						<h1>Flower React</h1>
-						<p>Цветочная реакция</p>
+				<Link to='/'>
+					<div className='header__logo'>
+						<img width='40' height='40' src={logoflow} alt='flower logo' />
+						<div>
+							<h1>Flower React</h1>
+							<p>Цветочная реакция</p>
+						</div>
 					</div>
-				</div>
+				</Link>
 				<div className='header__cart'>
-					<a href='/cart.html' className='button button--cart'>
+					<Link to='/cart' className='button button--cart'>
 						<span>616 ₽</span>
 						<div className='button__delimiter'></div>
 						<svg
@@ -45,7 +48,7 @@ function Header() {
 							/>
 						</svg>
 						<span>16</span>
-					</a>
+					</Link>
 				</div>
 			</div>
 		</div>
