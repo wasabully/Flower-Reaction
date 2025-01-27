@@ -24,18 +24,18 @@ const Home = () => {
 	}, []);
 
 	return (
-		<>
+		<div className='container'>
 			<div className='content__top'>
 				<Catigories />
 				<Sort />
 			</div>
-			<h2 className='content__title'>Все Цветы</h2>
+			<h2 className='content__title'>Все Букеты</h2>
 			<div className='content__items'>
 				{isLoading
 					? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
 					: Items.map((obj) => <FlowerBlock key={obj.id} {...obj} />)}
 			</div>
-		</>
+		</div>
 	);
 };
 

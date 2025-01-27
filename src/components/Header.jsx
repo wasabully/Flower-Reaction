@@ -1,5 +1,5 @@
 import { Link } from 'react-router';
-import logoflow from '../assets/img/logoflow.png';
+import logo from '../assets/img/logo.jpeg';
 
 function Header() {
 	return (
@@ -7,9 +7,9 @@ function Header() {
 			<div className='container'>
 				<Link to='/'>
 					<div className='header__logo'>
-						<img width='40' height='40' src={logoflow} alt='flower logo' />
+						<img width='60' height='50' src={logo} alt='flower logo' />
 						<div>
-							<h1>Flower React</h1>
+							<h1>Flower Reaction</h1>
 							<p>Цветочная реакция</p>
 						</div>
 					</div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Categories() {
-	const categories = ['Все Цветы', 'Моно', 'Эффект', 'Комплимент', 'Хиты'];
+	const categories = ['Все', 'Моно', 'Эффект', 'Комплимент', 'Хиты'];
 	const [activeCategoryIndex, setActiveCategoryIndex] = React.useState(0);
 
 	console.log('activeCategoryIndex:', activeCategoryIndex);
