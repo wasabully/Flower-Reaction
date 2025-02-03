@@ -1,25 +1,28 @@
 import React from 'react';
 
-function Sort() {
-	const popupContent = ['цене', 'алфавиту', 'популярности'];
-	const [selected, setSelected] = React.useState(0);
-	const [isPopupVisible, setIsPopupVisible] = React.useState(false);
-	const selectedSort = popupContent[selected];
+function Sort({ sortingType, onClickSorting }) {
+	const popupContent = [
+		{ name: 'Цене', SortingProperties: 'price' },
+		{ name: 'Алфавиту', SortingProperties: 'letters' },
+		{ name: 'Популярности', SortingProperties: 'rating' },
+	];
 
-	console.log('Initial state:', { selected, isPopupVisible });
+	const [isPopupVisible, setIsPopupVisible] = React.useState(false);
+
+	// console.log('Initial state:', { selected, isPopupVisible });
 
 	const handleOptionSelect = (index) => {
-		console.log('index', index);
-		setSelected(index);
+		// console.log('index', index);
+		onClickSorting(index);
 		setIsPopupVisible(false);
 	};
 
 	const togglePopupVisibility = () => {
-		console.log('is Popup Visible', isPopupVisible);
+		// console.log('is Popup Visible', isPopupVisible);
 		setIsPopupVisible((prev) => !prev);
 	};
 
-	console.log('pered render', { selected, selectedSort, isPopupVisible });
+	// console.log('pered render', { selected, selectedSort, isPopupVisible });
 
 	return (
 		<div className='sort'>
@@ -37,18 +40,22 @@ function Sort() {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span onClick={togglePopupVisibility}>{selectedSort}</span>
+				<span onClick={togglePopupVisibility}>{sortingType.name}</span>
 			</div>
 			{isPopupVisible && (
 				<div className='sort__popup'>
 					<ul>
-						{popupContent.map((name, index) => (
+						{popupContent.map((obj, index) => (
 							<li
 								key={index}
-								onClick={() => handleOptionSelect(index)}
-								className={selected === index ? 'active' : ''}
+								onClick={() => handleOptionSelect(obj)}
+								className={
+									sortingType.SortingProperties === obj.SortingProperties
+										? 'active'
+										: ''
+								}
 							>
-								{name}
+								{obj.name}
 							</li>
 						))}
 					</ul>
