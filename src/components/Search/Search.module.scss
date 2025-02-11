@@ -3,22 +3,36 @@
 }
 
 .icon {
-	width: 24px;
-	height: 24px;
+	width: 20px;
+	height: 20px;
 	opacity: 0.3;
 	position: absolute;
 	left: 11px;
-	top: 10px;
+	top: 11px;
 }
 
 .input {
 	border: 1px solid rgba(0, 0, 0, 0.1);
 	padding: 10px 20px;
-	width: 300px;
+	width: 330px;
 	padding-left: 40px;
 	font-size: 16px;
 	border-radius: 10px;
 	&:focus {
 		border: 1px solid rgba(0, 0, 0, 0.2);
+	}
+}
+
+.clear {
+	width: 20px;
+	height: 20px;
+	opacity: 0.3;
+	position: absolute;
+	right: 9px;
+	top: 12px;
+
+	&:hover {
+		opacity: 0.9;
+		cursor: pointer;
 	}
 }
