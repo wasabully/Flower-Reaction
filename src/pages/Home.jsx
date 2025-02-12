@@ -1,6 +1,6 @@
 import React from 'react';
 import { SearchContext } from '../App';
-import Catigories from '../components/Catigories';
+import Categories from '../components/Categories';
 import FlowerBlock from '../components/FlowerBlock';
 import Skeleton from '../components/FlowerBlock/Skeleton';
 import Pagination from '../components/Pagination';
@@ -19,15 +19,6 @@ const Home = () => {
 	const [currentPage, setCurrentPage] = React.useState(1);
 	const itemsPerPage = 4;
 
-	console.log('categoryid:', categoryId, 'sortingType:', sortingType);
-
-	// .filter((obj) => {
-	// 	if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-	// 		return true;
-	// 	}
-	// 	return false;
-	// })// Если статичный массив подходит
-
 	const filteredItems = Items.map((obj) => (
 		<FlowerBlock key={obj.id} {...obj} />
 	));
@@ -37,16 +28,13 @@ const Home = () => {
 	const category = categoryId > 0 ? `category=${categoryId}` : '';
 	const search = searchValue ? `&search=${searchValue}` : '';
 
-	const getApiData = () => {
+	const getApiData = React.useCallback(() => {
 		setLoading(true);
-		const url = `https://6786132df80b78923aa54fbb.mockapi.io/items?${category}${search}&page=${currentPage}&limit=${itemsPerPage}`;
+		const sortBy = `&sortBy=${sortingType.SortingProperties}&order=asc`;
+		const url = `https://6786132df80b78923aa54fbb.mockapi.io/items?${category}${search}${sortBy}&page=${currentPage}&limit=${itemsPerPage}`;
+
 		fetch(url)
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error(`Error ${response.status}: Not Found`);
-				}
-				return response.json();
-			})
+			.then((response) => response.json())
 			.then((data) => {
 				setItems(data);
 				setLoading(false);
@@ -56,7 +44,7 @@ const Home = () => {
 				setItems([]);
 				setLoading(false);
 			});
-	};
+	}, [categoryId, sortingType, searchValue, currentPage]);
 
 	React.useEffect(() => {
 		getApiData();
@@ -65,7 +53,7 @@ const Home = () => {
 	return (
 		<div className='container'>
 			<div className='content__top'>
-				<Catigories
+				<Categories
 					categoryId={categoryId}
 					onClickCategory={(id) => setCategoryId(id)}
 				/>

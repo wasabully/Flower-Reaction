@@ -3,26 +3,20 @@ import React from 'react';
 function Sort({ sortingType, onClickSorting }) {
 	const popupContent = [
 		{ name: 'Цене', SortingProperties: 'price' },
-		{ name: 'Алфавиту', SortingProperties: 'letters' },
+		{ name: 'Алфавиту', SortingProperties: 'title' },
 		{ name: 'Популярности', SortingProperties: 'rating' },
 	];
 
 	const [isPopupVisible, setIsPopupVisible] = React.useState(false);
 
-	// console.log('Initial state:', { selected, isPopupVisible });
-
-	const handleOptionSelect = (index) => {
-		// console.log('index', index);
-		onClickSorting(index);
+	const handleOptionSelect = (sortOption) => {
+		onClickSorting(sortOption);
 		setIsPopupVisible(false);
 	};
 
 	const togglePopupVisibility = () => {
-		// console.log('is Popup Visible', isPopupVisible);
 		setIsPopupVisible((prev) => !prev);
 	};
-
-	// console.log('pered render', { selected, selectedSort, isPopupVisible });
 
 	return (
 		<div className='sort'>
