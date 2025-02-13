@@ -6,16 +6,28 @@ import Skeleton from '../components/FlowerBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import Sort from '../components/Sort';
 import NotFound from '../pages/NotFound';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategoryId } from '../redux/slices/filterSlice';
 
 const Home = () => {
+	const dispatch = useDispatch();
+
+	const categoryId = useSelector((state) => state.filter.categoryId);
+	const sortingType = useSelector((state) => state.filter.sort);
+
 	const { searchValue } = React.useContext(SearchContext);
 	const [Items, setItems] = React.useState([]);
 	const [isLoading, setLoading] = React.useState(true);
-	const [categoryId, setCategoryId] = React.useState(0);
-	const [sortingType, setSortingType] = React.useState({
-		name: 'Цене',
-		SortingProperties: 'price',
-	});
+	// const [categoryId, setCategoryId] = React.useState(0);
+	// const [sortingType, setSortingType] = React.useState({
+	// 	name: 'Цене',
+	// 	SortingProperties: 'price',
+	// });
+
+	const onClickCategory = (id) => {
+		dispatch(setCategoryId(id)); // return {type: 'filters/setCategoryId, payload: id};
+	};
+
 	const [currentPage, setCurrentPage] = React.useState(1);
 	const itemsPerPage = 4;
 
@@ -53,14 +65,8 @@ const Home = () => {
 	return (
 		<div className='container'>
 			<div className='content__top'>
-				<Categories
-					categoryId={categoryId}
-					onClickCategory={(id) => setCategoryId(id)}
-				/>
-				<Sort
-					sortingType={sortingType}
-					onClickSorting={(id) => setSortingType(id)}
-				/>
+				<Categories categoryId={categoryId} onClickCategory={onClickCategory} />
+				<Sort />
 			</div>
 			<h2 className='content__title'>Все Букеты</h2>
 			<div className='content__items'>

@@ -1,16 +1,20 @@
 import React from 'react';
+import { setSortingType } from '../redux/slices/filterSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
-function Sort({ sortingType, onClickSorting }) {
-	const popupContent = [
-		{ name: 'Цене', SortingProperties: 'price' },
-		{ name: 'Алфавиту', SortingProperties: 'title' },
-		{ name: 'Популярности', SortingProperties: 'rating' },
-	];
+const popupContent = [
+	{ name: 'Цене', SortingProperties: 'price' },
+	{ name: 'Алфавиту', SortingProperties: 'title' },
+	{ name: 'Популярности', SortingProperties: 'rating' },
+];
 
+function Sort() {
+	const sortingType = useSelector((state) => state.filter.sort);
+	const dispatch = useDispatch();
 	const [isPopupVisible, setIsPopupVisible] = React.useState(false);
 
-	const handleOptionSelect = (sortOption) => {
-		onClickSorting(sortOption);
+	const handleOptionSelect = (obj) => {
+		dispatch(setSortingType(obj));
 		setIsPopupVisible(false);
 	};
 
