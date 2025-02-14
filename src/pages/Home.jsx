@@ -8,23 +8,26 @@ import Skeleton from '../components/FlowerBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import Sort from '../components/Sort';
 import NotFound from '../pages/NotFound';
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 
 const Home = () => {
 	const dispatch = useDispatch();
 
-	const categoryId = useSelector((state) => state.filter.categoryId);
-	const sortingType = useSelector((state) => state.filter.sort);
-
+	const { categoryId, sortingType, currentPage } = useSelector(
+		(state) => state.filter
+	);
 	const { searchValue } = React.useContext(SearchContext);
 
 	const [items, setItems] = React.useState([]);
 	const [isLoading, setLoading] = React.useState(true);
-	const [currentPage, setCurrentPage] = React.useState(1);
 	const itemsPerPage = 4;
 
 	const onClickCategory = (id) => {
 		dispatch(setCategoryId(id));
+	};
+
+	const onPageChange = (number) => {
+		dispatch(setCurrentPage(number));
 	};
 
 	const category = categoryId > 0 ? `category=${categoryId}` : '';
@@ -77,7 +80,7 @@ const Home = () => {
 			<Pagination
 				currentPage={currentPage}
 				totalPages={3}
-				onPageChange={setCurrentPage}
+				onPageChange={onPageChange}
 			/>
 		</div>
 	);
