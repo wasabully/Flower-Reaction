@@ -33,23 +33,23 @@ const Home = () => {
 		? `&sortBy=${sortingType.SortingProperties}&order=asc`
 		: '';
 
-	const getApiData = React.useCallback(async () => {
-		setLoading(true);
-		const url = `https://6786132df80b78923aa54fbb.mockapi.io/items?${category}${search}${sortBy}&page=${currentPage}&limit=${itemsPerPage}`;
-
-		try {
-			const response = await axios.get(url);
-			setItems(response.data);
-		} catch (error) {
-			console.error('Ошибка при загрузке данных:', error);
-		} finally {
-			setLoading(false);
-		}
-	}, [category, search, sortBy, currentPage]);
-
 	React.useEffect(() => {
-		getApiData();
-	}, [getApiData]);
+		const fetchData = async () => {
+			setLoading(true);
+			const url = `https://6786132df80b78923aa54fbb.mockapi.io/items?${category}${search}${sortBy}&page=${currentPage}&limit=${itemsPerPage}`;
+
+			try {
+				const response = await axios.get(url);
+				setItems(response.data);
+			} catch (error) {
+				console.error('Ошибка при загрузке данных:', error);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchData();
+	}, [category, search, sortBy, currentPage]);
 
 	const filteredItems = items.map((obj) => (
 		<FlowerBlock key={obj.id} {...obj} />
