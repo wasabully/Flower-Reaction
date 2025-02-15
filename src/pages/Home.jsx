@@ -13,7 +13,7 @@ import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 const Home = () => {
 	const dispatch = useDispatch();
 
-	const { categoryId, sortingType, currentPage } = useSelector(
+	const { categoryId, sort, currentPage } = useSelector(
 		(state) => state.filter
 	);
 	const { searchValue } = React.useContext(SearchContext);
@@ -32,8 +32,8 @@ const Home = () => {
 
 	const category = categoryId > 0 ? `category=${categoryId}` : '';
 	const search = searchValue ? `&search=${searchValue}` : '';
-	const sortBy = sortingType?.SortingProperties
-		? `&sortBy=${sortingType.SortingProperties}&order=asc`
+	const sortBy = sort?.SortingProperties
+		? `&sortBy=${sort.SortingProperties}&order=asc`
 		: '';
 
 	React.useEffect(() => {
