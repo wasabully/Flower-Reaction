@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
+import qs from 'qs';
+
 import { SearchContext } from '../App';
 import Categories from '../components/Categories';
 import FlowerBlock from '../components/FlowerBlock';
 import Skeleton from '../components/FlowerBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import Sort from '../components/Sort';
+import { popupContent } from '../components/Sort';
 import NotFound from '../pages/NotFound';
-import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
+import {
+	setCategoryId,
+	setCurrentPage,
+	setFilters,
+} from '../redux/slices/filterSlice';
 
 const Home = () => {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const hasRendered = useRef(false);
+	const isUrlSearch = useRef(false);
 
 	const { categoryId, sort, currentPage } = useSelector(
 		(state) => state.filter
@@ -30,29 +43,67 @@ const Home = () => {
 		dispatch(setCurrentPage(number));
 	};
 
-	const category = categoryId > 0 ? `category=${categoryId}` : '';
-	const search = searchValue ? `&search=${searchValue}` : '';
-	const sortBy = sort?.SortingProperties
-		? `&sortBy=${sort.SortingProperties}&order=asc`
-		: '';
+	const fetchData = async () => {
+		setLoading(true);
+
+		const category = categoryId > 0 ? `category=${categoryId}` : '';
+		const search = searchValue ? `&search=${searchValue}` : '';
+		const sortBy = sort?.SortingProperties
+			? `&sortBy=${sort.SortingProperties}&order=asc`
+			: '';
+
+		const url = `https://6786132df80b78923aa54fbb.mockapi.io/items?${category}${search}${sortBy}&page=${currentPage}&limit=${itemsPerPage}`;
+
+		try {
+			const response = await axios.get(url);
+			setItems(response.data);
+		} catch (error) {
+			console.error('Ошибка при загрузке данных:', error);
+		} finally {
+			setLoading(false);
+		}
+	};
 
 	React.useEffect(() => {
-		const fetchData = async () => {
-			setLoading(true);
-			const url = `https://6786132df80b78923aa54fbb.mockapi.io/items?${category}${search}${sortBy}&page=${currentPage}&limit=${itemsPerPage}`;
+		if (hasRendered.current) {
+			const queryString = qs.stringify({
+				SortingProperties: sort.SortingProperties,
+				categoryId,
+				currentPage,
+			});
+			navigate(`?${queryString}`);
+		} else {
+			hasRendered.current = true;
+		}
+	}, [categoryId, sort.SortingProperties, currentPage]);
 
-			try {
-				const response = await axios.get(url);
-				setItems(response.data);
-			} catch (error) {
-				console.error('Ошибка при загрузке данных:', error);
-			} finally {
-				setLoading(false);
-			}
-		};
+	React.useEffect(() => {
+		if (window.location.search) {
+			const params = qs.parse(window.location.search.substring(1));
 
-		fetchData();
-	}, [category, search, sortBy, currentPage]);
+			const sort = popupContent.find(
+				(obj) => obj.SortingProperties === params.SortingProperties
+			);
+
+			dispatch(
+				setFilters({
+					...params,
+					sort,
+				})
+			);
+			isUrlSearch.current = true;
+		}
+	}, []);
+
+	React.useEffect(() => {
+		window.scrollTo(0, 0);
+
+		if (!isUrlSearch.current) {
+			fetchData();
+		}
+
+		isUrlSearch.current = false;
+	}, [categoryId, sort.SortingProperties, currentPage, searchValue]);
 
 	const filteredItems = items.map((obj) => (
 		<FlowerBlock key={obj.id} {...obj} />

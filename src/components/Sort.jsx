@@ -2,7 +2,7 @@ import React from 'react';
 import { setSortingType } from '../redux/slices/filterSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
-const popupContent = [
+export const popupContent = [
 	{ name: 'Цене', SortingProperties: 'price' },
 	{ name: 'Алфавиту', SortingProperties: 'title' },
 	{ name: 'Популярности', SortingProperties: 'rating' },
