@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { setSortingType } from '../redux/slices/filterSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -12,6 +12,7 @@ function Sort() {
 	const sortingType = useSelector((state) => state.filter.sort);
 	const dispatch = useDispatch();
 	const [isPopupVisible, setIsPopupVisible] = React.useState(false);
+	const popupRef = React.useRef(null);
 
 	const handleOptionSelect = (obj) => {
 		dispatch(setSortingType(obj));
@@ -22,8 +23,25 @@ function Sort() {
 		setIsPopupVisible((prev) => !prev);
 	};
 
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			// проверяет, был ли клик внутри попапа
+			if (popupRef.current && !popupRef.current.contains(event.target)) {
+				setIsPopupVisible(false);
+			}
+		};
+		if (isPopupVisible) {
+			document.addEventListener('click', handleClickOutside);
+		}
+
+		return () => {
+			// unmount;
+			document.removeEventListener('click', handleClickOutside);
+		};
+	}, [isPopupVisible]);
+
 	return (
-		<div className='sort'>
+		<div className='sort' ref={popupRef}>
 			<div className='sort__label'>
 				<svg
 					width='10'
