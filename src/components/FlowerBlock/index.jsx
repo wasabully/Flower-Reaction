@@ -1,8 +1,29 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProduct } from '../../redux/slices/cartSlice';
 
-function FlowerBlock({ title, price, sizes, imageUrl }) {
+function FlowerBlock({ id, title, price, sizes, imageUrl }) {
+	const dispatch = useDispatch();
+	const cartItem = useSelector((state) =>
+		state.cart.items.find((item) => item.id === id)
+	);
+
 	const [activeSize, setActiveSize] = React.useState(0);
 	const sizeName = ['S', 'M', 'L'];
+
+	const addedCount = cartItem ? cartItem.count : 0;
+
+	const onClickAdd = () => {
+		const item = {
+			id,
+			title,
+			price,
+			imageUrl,
+			size: sizeName[activeSize],
+		};
+		dispatch(addProduct(item));
+	};
+
 	return (
 		<div className='flower-block-wrapper'>
 			<div className='flower-block'>
@@ -23,7 +44,10 @@ function FlowerBlock({ title, price, sizes, imageUrl }) {
 				</div>
 				<div className='flower-block__bottom'>
 					<div className='flower-block__price'>от {price} ₽</div>
-					<button className='button button--outline button--add'>
+					<button
+						onClick={onClickAdd}
+						className='button button--outline button--add'
+					>
 						<svg
 							width='12'
 							height='12'
@@ -37,7 +61,7 @@ function FlowerBlock({ title, price, sizes, imageUrl }) {
 							/>
 						</svg>
 						<span>Добавить</span>
-						<i>0</i>
+						{addedCount > 0 && <i>{addedCount}</i>}
 					</button>
 				</div>
 			</div>
