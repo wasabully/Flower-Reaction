@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
 import qs from 'qs';
 
 import { SearchContext } from '../App';
@@ -13,6 +12,7 @@ import Pagination from '../components/Pagination';
 import Sort from '../components/Sort';
 import { popupContent } from '../components/Sort';
 import NotFound from '../pages/NotFound';
+import { fetchFlowers } from '../redux/slices/flowersSlice';
 import {
 	setCategoryId,
 	setCurrentPage,
@@ -29,10 +29,9 @@ const Home = () => {
 	const { categoryId, sort, currentPage } = useSelector(
 		(state) => state.filter
 	);
+	const { items, isLoading } = useSelector((state) => state.flowers);
 	const { searchValue } = React.useContext(SearchContext);
 
-	const [items, setItems] = React.useState([]);
-	const [isLoading, setLoading] = React.useState(true);
 	const itemsPerPage = 4;
 
 	const onClickCategory = (id) => {
@@ -41,27 +40,6 @@ const Home = () => {
 
 	const onPageChange = (number) => {
 		dispatch(setCurrentPage(number));
-	};
-
-	const fetchData = async () => {
-		setLoading(true);
-
-		const category = categoryId > 0 ? `category=${categoryId}` : '';
-		const search = searchValue ? `&search=${searchValue}` : '';
-		const sortBy = sort?.SortingProperties
-			? `&sortBy=${sort.SortingProperties}&order=asc`
-			: '';
-
-		const url = `https://6786132df80b78923aa54fbb.mockapi.io/items?${category}${search}${sortBy}&page=${currentPage}&limit=${itemsPerPage}`;
-
-		try {
-			const response = await axios.get(url);
-			setItems(response.data);
-		} catch (error) {
-			console.error('Ошибка при загрузке данных:', error);
-		} finally {
-			setLoading(false);
-		}
 	};
 
 	React.useEffect(() => {
@@ -98,12 +76,15 @@ const Home = () => {
 	React.useEffect(() => {
 		window.scrollTo(0, 0);
 
-		if (!isUrlSearch.current) {
-			fetchData();
-		}
-
-		isUrlSearch.current = false;
-	}, [categoryId, sort.SortingProperties, currentPage, searchValue]);
+		dispatch(
+			fetchFlowers({
+				categoryId,
+				searchValue,
+				sortBy: sort.SortingProperties,
+				currentPage,
+			})
+		);
+	}, [categoryId, sort.SortingProperties, currentPage, searchValue, dispatch]);
 
 	const filteredItems = items.map((obj) => (
 		<FlowerBlock key={obj.id} {...obj} />
