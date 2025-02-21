@@ -12,8 +12,9 @@ import Pagination from '../components/Pagination';
 import Sort from '../components/Sort';
 import { popupContent } from '../components/Sort';
 import NotFound from '../pages/NotFound';
-import { fetchFlowers } from '../redux/slices/flowersSlice';
+import { fetchFlowers, selectFlowersData } from '../redux/slices/flowersSlice';
 import {
+	filterSelector,
 	setCategoryId,
 	setCurrentPage,
 	setFilters,
@@ -26,10 +27,8 @@ const Home = () => {
 	const hasRendered = useRef(false);
 	const isUrlSearch = useRef(false);
 
-	const { categoryId, sort, currentPage } = useSelector(
-		(state) => state.filter
-	);
-	const { items, isLoading } = useSelector((state) => state.flowers);
+	const { categoryId, sort, currentPage } = useSelector(filterSelector);
+	const { items, isLoading } = useSelector(selectFlowersData);
 	const { searchValue } = React.useContext(SearchContext);
 
 	const itemsPerPage = 4;

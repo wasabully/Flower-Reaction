@@ -1,12 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct } from '../../redux/slices/cartSlice';
+import { addProduct, selectCartById } from '../../redux/slices/cartSlice';
 
 function FlowerBlock({ id, title, price, sizes, imageUrl }) {
 	const dispatch = useDispatch();
-	const cartItem = useSelector((state) =>
-		state.cart.items.find((item) => item.id === id)
-	);
+	const cartItem = useSelector(selectCartById(id));
 
 	const [activeSize, setActiveSize] = React.useState(0);
 	const sizeName = ['S', 'M', 'L'];

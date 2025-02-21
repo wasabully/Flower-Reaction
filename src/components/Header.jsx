@@ -2,10 +2,11 @@ import { Link } from 'react-router';
 import { useSelector } from 'react-redux';
 import logo from '../assets/img/logo.jpeg';
 import Search from './Search';
+import { getCartSelector } from '../redux/slices/cartSlice';
 
 function Header() {
-	const { totalPrice, items } = useSelector((state) => state.cart);
-	const totalCount = items.reduce((sum, item) => sum + item.count, 0); // кол-во товаров в корзине
+	const { totalPrice, items } = useSelector(getCartSelector);
+	const totalCount = items.reduce((sum, item) => sum + item.count, 0);
 	return (
 		<div className='header'>
 			<div className='container'>

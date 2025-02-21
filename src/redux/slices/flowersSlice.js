@@ -37,4 +37,6 @@ const flowersSlice = createSlice({
 	},
 });
 
+export const selectFlowersData = (state) => state.flowers;
+
 export default flowersSlice.reducer;

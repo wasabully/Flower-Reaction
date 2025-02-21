@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { setSortingType } from '../redux/slices/filterSlice';
+import { selectSort, setSortingType } from '../redux/slices/filterSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
 export const popupContent = [
@@ -9,7 +9,7 @@ export const popupContent = [
 ];
 
 function Sort() {
-	const sortingType = useSelector((state) => state.filter.sort);
+	const sortingType = useSelector(selectSort);
 	const dispatch = useDispatch();
 	const [isPopupVisible, setIsPopupVisible] = React.useState(false);
 	const popupRef = React.useRef(null);
