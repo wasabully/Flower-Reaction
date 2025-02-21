@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import logo from '../assets/img/logo.jpeg';
 import Search from './Search';

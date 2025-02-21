@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 import qs from 'qs';
 
-import { SearchContext } from '../App';
 import Categories from '../components/Categories';
 import FlowerBlock from '../components/FlowerBlock';
 import Skeleton from '../components/FlowerBlock/Skeleton';
@@ -27,9 +26,9 @@ const Home = () => {
 	const hasRendered = useRef(false);
 	const isUrlSearch = useRef(false);
 
-	const { categoryId, sort, currentPage } = useSelector(filterSelector);
+	const { categoryId, sort, currentPage, searchValue } =
+		useSelector(filterSelector);
 	const { items, isLoading } = useSelector(selectFlowersData);
-	const { searchValue } = React.useContext(SearchContext);
 
 	const itemsPerPage = 4;
 
