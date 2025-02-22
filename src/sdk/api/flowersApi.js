@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const BASE_URL = 'https://6786132df80b78923aa54fbb.mockapi.io/items';
 const ITEMS_PER_PAGE = 4;
 
@@ -7,17 +9,30 @@ export const fetchFlowersApi = async ({
 	sortBy,
 	currentPage,
 }) => {
-	const category = categoryId > 0 ? `category=${categoryId}` : '';
-	const search = searchValue ? `&search=${searchValue}` : '';
-	const sort = sortBy ? `&sortBy=${sortBy}&order=asc` : '';
-	const page = `&page=${currentPage}&limit=${ITEMS_PER_PAGE}`;
-
-	const url = `${BASE_URL}?${category}${search}${sort}${page}`;
-	const response = await fetch(url);
-
-	if (!response.ok) {
-		throw new Error('Ошибка при загрузке данных');
+	try {
+		const response = await axios.get(BASE_URL, {
+			params: {
+				category: categoryId > 0 ? categoryId : undefined,
+				search: searchValue || undefined,
+				sortBy: sortBy || undefined,
+				order: sortBy ? 'asc' : undefined,
+				page: currentPage,
+				limit: ITEMS_PER_PAGE,
+			},
+		});
+		return response.data;
+	} catch (error) {
+		console.error('Ошибка при загрузке данных:', error);
+		throw error;
 	}
+};
 
-	return await response.json();
+export const fetchFlowerById = async (id) => {
+	try {
+		const response = await axios.get(`${BASE_URL}/${id}`);
+		return response.data;
+	} catch (error) {
+		console.error('Ошибка при загрузке данных:', error);
+		throw error;
+	}
 };

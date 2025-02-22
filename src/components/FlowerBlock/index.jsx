@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, selectCartById } from '../../redux/slices/cartSlice';
+import { Link } from 'react-router-dom';
 
 function FlowerBlock({ id, title, price, sizes, imageUrl }) {
 	const dispatch = useDispatch();
@@ -25,8 +26,11 @@ function FlowerBlock({ id, title, price, sizes, imageUrl }) {
 	return (
 		<div className='flower-block-wrapper'>
 			<div className='flower-block'>
-				<img className='flower-block__image' src={imageUrl} alt={title} />
-				<h4 className='flower-block__title'>{title}</h4>
+				<Link to={`/flowers/${id}`}>
+					<img className='flower-block__image' src={imageUrl} alt={title} />
+					<h4 className='flower-block__title'>{title}</h4>
+				</Link>
+
 				<div className='flower-block__selector'>
 					<ul>
 						{sizes.map((sizeid) => (
