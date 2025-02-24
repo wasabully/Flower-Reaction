@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { fetchFlowerById } from '../sdk/api/flowersApi';
 
 const FlowerDetails = () => {
 	const { id } = useParams();
 	const [flower, setFlower] = useState(null);
-	const [error, setError] = useState(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const getFlower = async () => {
@@ -13,23 +13,15 @@ const FlowerDetails = () => {
 				const data = await fetchFlowerById(id);
 				setFlower(data);
 			} catch (err) {
-				setError(err.message || 'Ошибка при загрузке цветка');
+				alert(err.message || 'Ошибка при загрузке цветка');
+				navigate('/');
 			}
 		};
 
 		if (id) {
 			getFlower();
 		}
-	}, [id]);
-
-	if (error) {
-		return (
-			<div className='container'>
-				<h1>Flowers</h1>
-				<p style={{ color: 'red' }}>{error}</p>
-			</div>
-		);
-	}
+	}, [id, navigate]);
 
 	if (!flower) {
 		return (
@@ -39,6 +31,7 @@ const FlowerDetails = () => {
 			</div>
 		);
 	}
+
 	return (
 		<div className='container'>
 			<h1>Flowers</h1>
