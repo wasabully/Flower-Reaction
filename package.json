@@ -4,6 +4,10 @@
 	"private": true,
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.5.1",
+		"@types/jest": "^29.5.14",
+		"@types/node": "^22.13.5",
+		"@types/react": "^19.0.10",
+		"@types/react-dom": "^19.0.4",
 		"axios": "^1.7.9",
 		"cra-template": "1.2.0",
 		"lodash.debounce": "^4.0.8",
@@ -13,6 +17,7 @@
 		"react-router-dom": "^6.29.0",
 		"react-scripts": "5.0.1",
 		"sass-loader": "^13.3.3",
+		"typescript": "^5.7.3",
 		"web-vitals": "^4.2.4"
 	},
 	"scripts": {

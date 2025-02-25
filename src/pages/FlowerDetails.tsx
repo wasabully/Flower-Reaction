@@ -2,18 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchFlowerById } from '../sdk/api/flowersApi';
 
-const FlowerDetails = () => {
-	const { id } = useParams();
-	const [flower, setFlower] = useState(null);
+interface Flower {
+	imageUrl: string;
+	title: string;
+	price: number;
+}
+
+const FlowerDetails: React.FC = () => {
+	const { id } = useParams<{ id: string }>();
+	const [flower, setFlower] = useState<Flower | null>(null);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const getFlower = async () => {
+			if (!id) return;
+
 			try {
 				const data = await fetchFlowerById(id);
 				setFlower(data);
 			} catch (err) {
-				alert(err.message || 'Ошибка при загрузке цветка');
+				if (err instanceof Error) {
+					alert(err.message || 'Ошибка при загрузке цветка');
+				}
 				navigate('/');
 			}
 		};
