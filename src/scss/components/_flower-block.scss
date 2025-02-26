@@ -1,4 +1,5 @@
-@import '../variables';
+@use '../variables' as *;
+@use '../libs/normalize' as *;
 
 .flower-block {
 	width: 280px;

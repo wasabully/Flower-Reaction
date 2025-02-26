@@ -1,20 +1,26 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+
 import { selectSort, setSortingType } from '../redux/slices/filterSlice';
 import { useSelector, useDispatch } from 'react-redux';
 
-export const popupContent = [
+type SortOption = {
+	name: string;
+	SortingProperties: string;
+};
+
+export const popupContent: SortOption[] = [
 	{ name: 'Цене', SortingProperties: 'price' },
 	{ name: 'Алфавиту', SortingProperties: 'title' },
 	{ name: 'Популярности', SortingProperties: 'rating' },
 ];
 
-function Sort() {
+const Sort: React.FC = () => {
 	const sortingType = useSelector(selectSort);
 	const dispatch = useDispatch();
 	const [isPopupVisible, setIsPopupVisible] = React.useState(false);
-	const popupRef = React.useRef(null);
+	const popupRef = React.useRef<HTMLDivElement>(null);
 
-	const handleOptionSelect = (obj) => {
+	const handleOptionSelect = (obj: SortOption) => {
 		dispatch(setSortingType(obj));
 		setIsPopupVisible(false);
 	};
@@ -23,9 +29,8 @@ function Sort() {
 		setIsPopupVisible((prev) => !prev);
 	};
 
-	useEffect(() => {
-		const handleClickOutside = (event) => {
-			// проверяет, был ли клик внутри попапа
+	React.useEffect(() => {
+		const handleClickOutside = (event: any) => {
 			if (popupRef.current && !popupRef.current.contains(event.target)) {
 				setIsPopupVisible(false);
 			}
@@ -35,7 +40,6 @@ function Sort() {
 		}
 
 		return () => {
-			// unmount;
 			document.removeEventListener('click', handleClickOutside);
 		};
 	}, [isPopupVisible]);
@@ -79,6 +83,6 @@ function Sort() {
 			)}
 		</div>
 	);
-}
+};
 
 export default Sort;

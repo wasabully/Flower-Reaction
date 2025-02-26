@@ -1,7 +1,9 @@
-@import './variables.scss';
-@import './libs/normalize.scss';
+@use 'sass:color';
 
-@import './components/all.scss';
+@use './variables' as *;
+@use './libs/normalize' as *;
+
+@use './components/all.scss';
 
 body {
 	background-color: $background;
@@ -140,11 +142,15 @@ body {
 		&:hover {
 			svg {
 				path {
-					stroke: darken($color: #b6b6b6, $amount: 50);
+					stroke: color.adjust(
+						$color: #b6b6b6,
+						$lightness: -50 * 1%,
+						$space: hsl
+					);
 				}
 			}
 			span {
-				color: darken($color: #b6b6b6, $amount: 50);
+				color: color.adjust($color: #b6b6b6, $lightness: -50 * 1%, $space: hsl);
 			}
 		}
 	}
@@ -229,14 +235,18 @@ body {
 			width: 4%;
 
 			.button {
-				border-color: darken($color: $gray-line, $amount: 10);
+				border-color: color.adjust(
+					$color: $gray-line,
+					$lightness: -10 * 1%,
+					$space: hsl
+				);
 			}
 
 			svg {
 				transform: rotate(45deg);
 
 				path {
-					fill: darken($color: $gray-line, $amount: 15);
+					fill: color.adjust($color: $gray-line, $lightness: -15%, $space: hsl);
 				}
 			}
 
@@ -248,8 +258,16 @@ body {
 				}
 				&:hover,
 				&:active {
-					border-color: darken($color: $gray-line, $amount: 80);
-					background-color: darken($color: $gray-line, $amount: 80);
+					border-color: color.adjust(
+						$color: $gray-line,
+						$lightness: -80 * 1%,
+						$space: hsl
+					);
+					background-color: color.adjust(
+						$color: $gray-line,
+						$lightness: -80 * 1%,
+						$space: hsl
+					);
 				}
 			}
 		}
@@ -284,17 +302,33 @@ body {
 				justify-content: center;
 				width: 210px;
 
-				border-color: darken($color: $gray-line, $amount: 10);
+				border-color: color.adjust(
+					$color: $gray-line,
+					$lightness: -10 * 1%,
+					$space: hsl
+				);
 
 				span {
-					color: darken($color: $gray-line, $amount: 20);
+					color: color.adjust(
+						$color: $gray-line,
+						$lightness: -20%,
+						$space: hsl
+					);
 					font-weight: 500;
 					font-weight: 600;
 				}
 
 				&:hover {
-					background-color: darken($color: $gray-line, $amount: 90);
-					border-color: darken($color: $gray-line, $amount: 90);
+					background-color: color.adjust(
+						$color: $gray-line,
+						$lightness: -90 * 1%,
+						$space: hsl
+					);
+					border-color: color.adjust(
+						$color: $gray-line,
+						$lightness: -90 * 1%,
+						$space: hsl
+					);
 
 					span {
 						color: $gray-line;

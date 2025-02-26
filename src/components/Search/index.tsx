@@ -2,13 +2,14 @@ import React from 'react';
 
 import styles from './Search.module.scss';
 import debounce from 'lodash.debounce';
+
 import { setSearchValue } from '../../redux/slices/filterSlice';
 import { useDispatch } from 'react-redux';
 
-function Search() {
+const Search: React.FC = () => {
 	const dispatch = useDispatch();
 
-	const inputRef = React.useRef(null);
+	const inputRef = React.useRef<HTMLInputElement>(null);
 	const [value, setValue] = React.useState('');
 
 	const updateSearchValue = React.useCallback(
@@ -18,14 +19,17 @@ function Search() {
 		[dispatch]
 	);
 
-	const onChangeInput = (event) => {
+	const onChangeInput = (event: any) => {
 		setValue(event.target.value);
 		updateSearchValue(event.target.value);
 	};
 	const onClickClear = () => {
 		setValue('');
 		dispatch(setSearchValue(''));
-		inputRef.current.focus();
+		// if (inputRef.current) {
+		// 	inputRef.current.focus();
+		// }
+		inputRef.current?.focus();
 	};
 	return (
 		<div className={styles.root}>
@@ -61,6 +65,6 @@ function Search() {
 			)}
 		</div>
 	);
-}
+};
 
 export default Search;

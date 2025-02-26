@@ -10,7 +10,7 @@ import Skeleton from '../components/FlowerBlock/Skeleton';
 import Pagination from '../components/Pagination';
 import Sort from '../components/Sort';
 import { popupContent } from '../components/Sort';
-import NotFound from '../pages/NotFound';
+import NotFound from './NotFound';
 import { fetchFlowers, selectFlowersData } from '../redux/slices/flowersSlice';
 import {
 	filterSelector,
@@ -19,7 +19,7 @@ import {
 	setFilters,
 } from '../redux/slices/filterSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -32,12 +32,12 @@ const Home = () => {
 
 	const itemsPerPage = 4;
 
-	const onClickCategory = (id) => {
-		dispatch(setCategoryId(id));
+	const onClickCategory = (index: number) => {
+		dispatch(setCategoryId(index));
 	};
 
-	const onPageChange = (number) => {
-		dispatch(setCurrentPage(number));
+	const onPageChange = (page: number) => {
+		dispatch(setCurrentPage(page));
 	};
 
 	React.useEffect(() => {
@@ -84,7 +84,7 @@ const Home = () => {
 		);
 	}, [categoryId, sort.SortingProperties, currentPage, searchValue, dispatch]);
 
-	const filteredItems = items.map((obj) => (
+	const filteredItems = items.map((obj: any) => (
 		<FlowerBlock key={obj.id} {...obj} />
 	));
 	const skeletons = [...new Array(itemsPerPage)].map((_, index) => (

@@ -1,9 +1,25 @@
-import React from 'react';
+import * as React from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, selectCartById } from '../../redux/slices/cartSlice';
 import { Link } from 'react-router-dom';
 
-function FlowerBlock({ id, title, price, sizes, imageUrl }) {
+type FlowerBlockProps = {
+	id: string;
+	title: string;
+	price: number;
+	sizes: string[];
+	imageUrl: string;
+	count: number;
+};
+
+const FlowerBlock: React.FC<FlowerBlockProps> = ({
+	id,
+	title,
+	price,
+	sizes,
+	imageUrl,
+}) => {
 	const dispatch = useDispatch();
 	const cartItem = useSelector(selectCartById(id));
 
@@ -33,13 +49,13 @@ function FlowerBlock({ id, title, price, sizes, imageUrl }) {
 
 				<div className='flower-block__selector'>
 					<ul>
-						{sizes.map((sizeid) => (
+						{sizes.map((sizeid, index) => (
 							<li
 								key={sizeid}
-								onClick={() => setActiveSize(sizeid)}
-								className={activeSize === sizeid ? 'active' : ''}
+								onClick={() => setActiveSize(index)}
+								className={activeSize === index ? 'active' : ''}
 							>
-								{sizeName[sizeid]}
+								{sizeName[index]}
 							</li>
 						))}
 					</ul>
@@ -69,6 +85,6 @@ function FlowerBlock({ id, title, price, sizes, imageUrl }) {
 			</div>
 		</div>
 	);
-}
+};
 
 export default FlowerBlock;

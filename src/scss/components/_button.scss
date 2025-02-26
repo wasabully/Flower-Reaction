@@ -1,4 +1,6 @@
-@import '../variables';
+@use '../variables' as *;
+@use '../libs/normalize' as *;
+@use 'sass:color';
 
 .button {
 	display: inline-block;
@@ -26,11 +28,11 @@
 	}
 
 	&:hover {
-		background-color: darken($latte, 8%);
+		background-color: color.adjust($latte, $lightness: -8%);
 	}
 
 	&:active {
-		background-color: darken($latte, 12%);
+		background-color: color.adjust($latte, $lightness: -12%);
 		transform: translateY(1px);
 	}
 
@@ -50,7 +52,7 @@
 
 		&:hover,
 		&:active {
-			background-color: lighten($color: $black, $amount: 10);
+			background-color: color.adjust($black, $lightness: 10%);
 		}
 	}
 
@@ -84,7 +86,7 @@
 		}
 
 		&:active {
-			background-color: darken($latte, 8%);
+			background-color: color.adjust($latte, $lightness: -8%, $space: hsl);
 		}
 	}
 

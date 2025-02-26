@@ -1,8 +1,19 @@
 import React from 'react';
+
 import styles from './Pagination.module.scss';
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-	const handlePageClick = (page) => {
+type PaginationProps = {
+	currentPage: number;
+	totalPages: number;
+	onPageChange: any;
+};
+
+const Pagination: React.FC<PaginationProps> = ({
+	currentPage,
+	totalPages,
+	onPageChange,
+}) => {
+	const handlePageClick = (page: number) => {
 		if (page >= 1 && page <= totalPages) {
 			onPageChange(page);
 		}
