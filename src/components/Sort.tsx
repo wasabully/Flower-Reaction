@@ -30,8 +30,11 @@ const Sort: React.FC = () => {
 	};
 
 	React.useEffect(() => {
-		const handleClickOutside = (event: any) => {
-			if (popupRef.current && !popupRef.current.contains(event.target)) {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (
+				popupRef.current &&
+				!popupRef.current.contains(event.target as Node)
+			) {
 				setIsPopupVisible(false);
 			}
 		};
