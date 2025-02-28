@@ -1,17 +1,17 @@
 import React from 'react';
 
-import { selectSort, setSortingType } from '../redux/slices/filterSlice';
+import { selectSort, setSortingType } from '../redux/slices/filterSlice.ts';
 import { useSelector, useDispatch } from 'react-redux';
 
 type SortOption = {
 	name: string;
-	SortingProperties: string;
+	sortingProperties: 'price' | 'title' | 'rating';
 };
 
 export const popupContent: SortOption[] = [
-	{ name: 'Цене', SortingProperties: 'price' },
-	{ name: 'Алфавиту', SortingProperties: 'title' },
-	{ name: 'Популярности', SortingProperties: 'rating' },
+	{ name: 'Цене', sortingProperties: 'price' },
+	{ name: 'Алфавиту', sortingProperties: 'title' },
+	{ name: 'Популярности', sortingProperties: 'rating' },
 ];
 
 const Sort: React.FC = () => {
@@ -28,7 +28,6 @@ const Sort: React.FC = () => {
 	const togglePopupVisibility = () => {
 		setIsPopupVisible((prev) => !prev);
 	};
-
 	React.useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
 			if (
@@ -73,7 +72,7 @@ const Sort: React.FC = () => {
 								key={index}
 								onClick={() => handleOptionSelect(obj)}
 								className={
-									sortingType.SortingProperties === obj.SortingProperties
+									sortingType.sortingProperties === obj.sortingProperties
 										? 'active'
 										: ''
 								}

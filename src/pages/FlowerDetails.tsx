@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { fetchFlowerById } from '../sdk/api/flowersApi';
+import { fetchFlowerById } from '../sdk/api/flowersApi.ts';
 
 interface Flower {
 	imageUrl: string;

@@ -2,9 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import {
 	addProduct,
+	CartItemType,
 	minusProduct,
 	removeProduct,
-} from '../redux/slices/cartSlice';
+} from '../redux/slices/cartSlice.ts';
 
 type SizeType = 'S' | 'M' | 'L' | string;
 
@@ -31,7 +32,7 @@ const CartItem: React.FC<CartItemProps> = ({
 		dispatch(
 			addProduct({
 				id,
-			})
+			} as CartItemType)
 		);
 	};
 

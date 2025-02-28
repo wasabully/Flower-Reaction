@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import qs from 'qs';
@@ -11,17 +11,21 @@ import Pagination from '../components/Pagination';
 import Sort from '../components/Sort';
 import { popupContent } from '../components/Sort';
 import NotFound from './NotFound';
-import { fetchFlowers, selectFlowersData } from '../redux/slices/flowersSlice';
+import {
+	fetchFlowers,
+	selectFlowersData,
+} from '../redux/slices/flowersSlice.ts';
 import {
 	filterSelector,
 	setCategoryId,
 	setCurrentPage,
 	setFilters,
-} from '../redux/slices/filterSlice';
+} from '../redux/slices/filterSlice.ts';
+import { useAppDispatch } from '../redux/store.ts';
 
 const Home: React.FC = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const hasRendered = useRef(false);
 	const isUrlSearch = useRef(false);
@@ -43,7 +47,7 @@ const Home: React.FC = () => {
 	React.useEffect(() => {
 		if (hasRendered.current) {
 			const queryString = qs.stringify({
-				SortingProperties: sort.SortingProperties,
+				sortingProperties: sort.sortingProperties,
 				categoryId,
 				currentPage,
 			});
@@ -51,14 +55,14 @@ const Home: React.FC = () => {
 		} else {
 			hasRendered.current = true;
 		}
-	}, [categoryId, sort.SortingProperties, currentPage]);
+	}, [categoryId, sort.sortingProperties, currentPage]);
 
 	React.useEffect(() => {
 		if (window.location.search) {
 			const params = qs.parse(window.location.search.substring(1));
 
 			const sort = popupContent.find(
-				(obj) => obj.SortingProperties === params.SortingProperties
+				(obj) => obj.sortingProperties === params.sortingProperties
 			);
 
 			dispatch(
@@ -78,11 +82,11 @@ const Home: React.FC = () => {
 			fetchFlowers({
 				categoryId,
 				searchValue,
-				sortBy: sort.SortingProperties,
+				sortBy: sort.sortingProperties,
 				currentPage,
 			})
 		);
-	}, [categoryId, sort.SortingProperties, currentPage, searchValue, dispatch]);
+	}, [categoryId, sort.sortingProperties, currentPage, searchValue, dispatch]);
 
 	const filteredItems = items.map((obj: any) => (
 		<FlowerBlock key={obj.id} {...obj} />

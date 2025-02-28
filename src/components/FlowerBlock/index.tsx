@@ -1,7 +1,11 @@
 import * as React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct, selectCartById } from '../../redux/slices/cartSlice';
+import {
+	addProduct,
+	CartItemType,
+	selectCartById,
+} from '../../redux/slices/cartSlice.ts';
 import { Link } from 'react-router-dom';
 
 type FlowerBlockProps = {
@@ -29,12 +33,13 @@ const FlowerBlock: React.FC<FlowerBlockProps> = ({
 	const addedCount = cartItem ? cartItem.count : 0;
 
 	const onClickAdd = () => {
-		const item = {
+		const item: CartItemType = {
 			id,
 			title,
 			price,
 			imageUrl,
-			size: sizeName[activeSize],
+			size: sizeName[activeSize] ?? 'S',
+			count: 0,
 		};
 		dispatch(addProduct(item));
 	};
