@@ -13,7 +13,6 @@ export interface FetchFlowersParams {
 	categoryId: number;
 	searchValue: string;
 	sortBy: string;
-	currentPage: number;
 }
 
 const BASE_URL = 'https://6786132df80b78923aa54fbb.mockapi.io/items';
@@ -29,7 +28,6 @@ export const fetchFlowersApi = async (
 				search: params.searchValue,
 				sortBy: params.sortBy,
 				order: params.sortBy ? 'asc' : undefined,
-				page: params.currentPage,
 				limit: ITEMS_PER_PAGE,
 			},
 		});

@@ -28,8 +28,7 @@ const Home: React.FC = () => {
 	const hasRendered = useRef(false);
 	const isUrlSearch = useRef(false);
 
-	const { categoryId, sort, currentPage, searchValue } =
-		useSelector(filterSelector);
+	const { categoryId, sort, searchValue } = useSelector(filterSelector);
 	const { items, isLoading } = useSelector(selectFlowersData);
 
 	const itemsPerPage = 4;
@@ -43,13 +42,12 @@ const Home: React.FC = () => {
 			const queryString = qs.stringify({
 				sortingProperties: sort.sortingProperties,
 				categoryId,
-				currentPage,
 			});
 			navigate(`?${queryString}`);
 		} else {
 			hasRendered.current = true;
 		}
-	}, [categoryId, sort.sortingProperties, currentPage]);
+	}, [categoryId, sort.sortingProperties]);
 
 	React.useEffect(() => {
 		if (window.location.search) {
@@ -59,12 +57,15 @@ const Home: React.FC = () => {
 				(obj) => obj.sortingProperties === params.sortingProperties
 			);
 
-			dispatch(
-				setFilters({
-					...params,
-					sort,
-				})
-			);
+			if (sort) {
+				dispatch(
+					setFilters({
+						categoryId: Number(params.categoryId) || 0,
+						searchValue: String(params.searchValue) || '',
+						sort,
+					})
+				);
+			}
 			isUrlSearch.current = true;
 		}
 	}, []);
@@ -77,10 +78,9 @@ const Home: React.FC = () => {
 				categoryId,
 				searchValue,
 				sortBy: sort.sortingProperties,
-				currentPage,
 			})
 		);
-	}, [categoryId, sort.sortingProperties, currentPage, searchValue, dispatch]);
+	}, [categoryId, sort.sortingProperties, searchValue, dispatch]);
 
 	const filteredItems = items.map((obj: any) => (
 		<FlowerBlock key={obj.id} {...obj} />

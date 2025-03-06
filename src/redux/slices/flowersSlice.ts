@@ -16,7 +16,6 @@ export interface FetchFlowersParams {
 	categoryId: number;
 	searchValue: string;
 	sortBy: string;
-	currentPage: number;
 }
 
 export interface FlowersState {
