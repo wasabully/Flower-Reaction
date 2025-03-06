@@ -7,7 +7,6 @@ import qs from 'qs';
 import Categories from '../components/Categories';
 import FlowerBlock from '../components/FlowerBlock';
 import Skeleton from '../components/FlowerBlock/Skeleton';
-import Pagination from '../components/Pagination';
 import Sort from '../components/Sort';
 import { popupContent } from '../components/Sort';
 import NotFound from './NotFound';
@@ -18,7 +17,6 @@ import {
 import {
 	filterSelector,
 	setCategoryId,
-	setCurrentPage,
 	setFilters,
 } from '../redux/slices/filterSlice.ts';
 import { useAppDispatch } from '../redux/store.ts';
@@ -39,10 +37,6 @@ const Home: React.FC = () => {
 	const onClickCategory = React.useCallback((index: number) => {
 		dispatch(setCategoryId(index));
 	}, []);
-
-	const onPageChange = (page: number) => {
-		dispatch(setCurrentPage(page));
-	};
 
 	React.useEffect(() => {
 		if (hasRendered.current) {
@@ -111,11 +105,6 @@ const Home: React.FC = () => {
 					<NotFound />
 				)}
 			</div>
-			<Pagination
-				currentPage={currentPage}
-				totalPages={3}
-				onPageChange={onPageChange}
-			/>
 		</div>
 	);
 };
