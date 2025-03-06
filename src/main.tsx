@@ -9,7 +9,7 @@ if (rootElement) {
 	const root = ReactDOM.createRoot(rootElement);
 
 	root.render(
-		<BrowserRouter>
+		<BrowserRouter basename='/Flower-Reaction'>
 			<Provider store={store}>
 				<App />
 			</Provider>
