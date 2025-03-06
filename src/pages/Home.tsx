@@ -36,9 +36,9 @@ const Home: React.FC = () => {
 
 	const itemsPerPage = 4;
 
-	const onClickCategory = (index: number) => {
+	const onClickCategory = React.useCallback((index: number) => {
 		dispatch(setCategoryId(index));
-	};
+	}, []);
 
 	const onPageChange = (page: number) => {
 		dispatch(setCurrentPage(page));
