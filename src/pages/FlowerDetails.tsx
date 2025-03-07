@@ -44,12 +44,22 @@ const FlowerDetails: React.FC = () => {
 
 	return (
 		<div className='container'>
-			<h1>Flowers</h1>
-
-			<div>
-				<img src={flower.imageUrl} alt={flower.title} />
+			<div
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+					justifyContent: 'center',
+				}}
+			>
+				<h1>Flower</h1>
+				<img
+					src={flower.imageUrl}
+					alt={flower.title}
+					style={{ width: '300px', height: '300px', objectFit: 'cover' }}
+				/>
 				<h2>{flower.title}</h2>
-				<h4>{flower.price}</h4>
+				<h4>{flower.price} ₽</h4>
 			</div>
 		</div>
 	);

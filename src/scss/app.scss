@@ -100,6 +100,9 @@ body {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		@media (max-width: 768px) {
+			gap: 60px;
+		}
 	}
 
 	.content__title {
@@ -116,6 +119,13 @@ body {
 			path {
 				stroke: $black;
 				stroke-width: 1.9;
+			}
+		}
+		@media (max-width: 768px) {
+			font-size: 28px;
+			svg {
+				width: 25px;
+				height: 25px;
 			}
 		}
 	}
@@ -165,6 +175,13 @@ body {
 		padding-top: 30px;
 		margin-top: 30px;
 
+		@media (max-width: 768px) {
+			flex-direction: column;
+			padding-top: 20px;
+			margin-top: 20px;
+			gap: 20px;
+		}
+
 		&-img {
 			display: flex;
 			align-items: center;
@@ -174,6 +191,14 @@ body {
 			img {
 				width: 80px;
 				height: 80px;
+			}
+			@media (max-width: 768px) {
+				width: 100%;
+				justify-content: center;
+				img {
+					width: 200px;
+					height: 200px;
+				}
 			}
 		}
 
@@ -194,6 +219,17 @@ body {
 				font-size: 18px;
 				color: #8d8d8d;
 			}
+			@media (max-width: 768px) {
+				width: 100%;
+				text-align: center;
+
+				h3 {
+					font-size: 20px;
+				}
+				p {
+					font-size: 18px;
+				}
+			}
 		}
 
 		&-count {
@@ -213,6 +249,14 @@ body {
 			b {
 				font-size: 22px;
 			}
+			@media (max-width: 768px) {
+				width: 100%;
+				justify-content: center;
+				gap: 20px;
+				b {
+					font-size: 23px;
+				}
+			}
 		}
 
 		&-price {
@@ -225,6 +269,9 @@ body {
 				font-weight: bold;
 				font-size: 22px;
 				letter-spacing: 0.01em;
+			}
+			@media (max-width: 768px) {
+				width: 100%;
 			}
 		}
 
@@ -270,6 +317,10 @@ body {
 					);
 				}
 			}
+			@media (max-width: 768px) {
+				width: 100%;
+				justify-content: center;
+			}
 		}
 	}
 
@@ -287,6 +338,10 @@ body {
 					b {
 						color: $latte;
 					}
+				}
+				@media (max-width: 768px) {
+					text-align: center;
+					font-size: 23px;
 				}
 			}
 		}
@@ -350,6 +405,9 @@ body {
 				width: 210px;
 				padding: 16px;
 			}
+			@media (max-width: 768px) {
+				gap: 20px;
+			}
 		}
 	}
 
@@ -387,6 +445,16 @@ body {
 			margin: 0 auto;
 			font-weight: 600;
 			font-size: 18px;
+		}
+	}
+	@media (max-width: 768px) {
+		width: 100%;
+		img {
+			width: 250px;
+		}
+		.button--black {
+			width: 200px;
+			font-size: 16px;
 		}
 	}
 }

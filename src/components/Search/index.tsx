@@ -26,9 +26,6 @@ const Search: React.FC = () => {
 	const onClickClear = () => {
 		setValue('');
 		dispatch(setSearchValue(''));
-		// if (inputRef.current) {
-		// 	inputRef.current.focus();
-		// }
 		inputRef.current?.focus();
 	};
 	return (
@@ -48,7 +45,7 @@ const Search: React.FC = () => {
 				ref={inputRef}
 				value={value}
 				onChange={onChangeInput}
-				placeholder='Поиск букетов'
+				placeholder='Поиск букетов ..'
 				className={styles.input}
 			/>
 			{value && (
