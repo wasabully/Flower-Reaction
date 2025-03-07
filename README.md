@@ -1,18 +1,19 @@
-# 🌸 Flower Reaction
+# 🌸 Flower Reaction: online store
 
-**Flower Reaction** – Цветочная реакция. Проект разработан с использованием современных технологий, обеспечивая быстрый рендеринг и удобный интерфейс.
+**Deploy:** [wasabully.github.io/Flower-Reaction](https://wasabully.github.io/Flower-Reaction/)  
 
-## 🛠 Технологии
+## 🛠 Tech Stack:  
 
-- **ReactJS 18**
-- **Vite**
+- **ReactJS 19**
 - **TypeScript**
-- **Redux Toolkit**
-- **React Router v6**
-- **Axios / Fetch**
 - **React Hooks**
-- **Prettier**
+- **React Router v7**
 - **CSS-Modules / SCSS**
+- **Vite**
+- **Redux Toolkit**
+- **Redux Thunk**
+- **Axios / Fetch**
+- **mockAPI**
 - **React Content Loader**
 - **Lodash.Debounce**
-- **Code Splitting, React Loadable, useWhyDidYouUpdate**
+- **useWhyDidYouUpdate**
