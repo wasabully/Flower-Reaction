@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { selectSort, setSortingType } from '../redux/slices/filterSlice.ts';
 import { useSelector, useDispatch } from 'react-redux';
+import { selectSort } from '../redux/filter/selectors';
+import { setSortingType } from '../redux/filter/slice';
 
 type SortOption = {
 	name: string;

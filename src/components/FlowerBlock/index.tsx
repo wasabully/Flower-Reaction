@@ -1,12 +1,11 @@
 import * as React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	addProduct,
-	CartItemType,
-	selectCartById,
-} from '../../redux/slices/cartSlice.ts';
+
 import { Link } from 'react-router-dom';
+import { selectCartById } from '../../redux/cart/selectors';
+import { CartItemType } from '../../redux/cart/types';
+import { addProduct } from '../../redux/cart/slice';
 
 type FlowerBlockProps = {
 	id: string;

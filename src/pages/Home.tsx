@@ -10,16 +10,12 @@ import Skeleton from '../components/FlowerBlock/Skeleton';
 import Sort from '../components/Sort';
 import { popupContent } from '../components/Sort';
 import NotFound from './NotFound';
-import {
-	fetchFlowers,
-	selectFlowersData,
-} from '../redux/slices/flowersSlice.ts';
-import {
-	filterSelector,
-	setCategoryId,
-	setFilters,
-} from '../redux/slices/filterSlice.ts';
+
 import { useAppDispatch } from '../redux/store.ts';
+import { filterSelector } from '../redux/filter/selectors.ts';
+import { selectFlowersData } from '../redux/flower/selectors.ts';
+import { setCategoryId, setFilters } from '../redux/filter/slice.ts';
+import { fetchFlowers } from '../redux/flower/asyncActions.ts';
 
 const Home: React.FC = () => {
 	const navigate = useNavigate();

@@ -1,19 +1,5 @@
 import axios from 'axios';
-
-export interface Flower {
-	id: string;
-	title: string;
-	price: number;
-	sizes: string[];
-	imageUrl: string;
-	count: number;
-}
-
-export interface FetchFlowersParams {
-	categoryId: number;
-	searchValue: string;
-	sortBy: string;
-}
+import { FetchFlowersParams, Flower } from '../../redux/flower/types';
 
 const BASE_URL = 'https://6786132df80b78923aa54fbb.mockapi.io/items';
 const ITEMS_PER_PAGE = 4;
@@ -47,3 +33,4 @@ export const fetchFlowerById = async (id: string): Promise<Flower> => {
 		throw error;
 	}
 };
+export type { Flower };

@@ -1,11 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import {
-	addProduct,
-	CartItemType,
-	minusProduct,
-	removeProduct,
-} from '../redux/slices/cartSlice.ts';
+import { addProduct, minusProduct, removeProduct } from '../redux/cart/slice';
+import { CartItemType } from '../redux/cart/types';
 
 type SizeType = 'S' | 'M' | 'L' | string;
 

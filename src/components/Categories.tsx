@@ -7,7 +7,6 @@ type CategoriesProps = {
 
 const Categories: React.FC<CategoriesProps> = React.memo(
 	({ categoryId, onClickCategory }) => {
-		// предотвратил лишнюю перерисовку memo
 		const categories = ['Все', 'Моно', 'Эффект', 'Комплимент', 'Хиты'];
 
 		return (
